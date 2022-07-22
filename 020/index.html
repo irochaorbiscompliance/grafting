@@ -11,7 +11,8 @@
 	
 	<script>
 		var ajax = new XMLHttpRequest( ); //Javascript y XML Asincronico
-			ajax.open( 'GET', 'ajax.php' );
+			ajax.open( 'POST', 'ajax.php' );
+			ajax.setRequestHeader( "content-type", "application/x-www-form-urlencoded" );
 			ajax.onload = function( ){
 				if( ajax.status == 200 ){ 
 					document.querySelector( '#respuesta' ).innerHTML = ajax.responseText;
@@ -19,20 +20,7 @@
 					document.querySelector( '#respuesta' ).innerHTML = 'petición errónea';
 				}
 			}
-			/*
-			ajax.onreadystatechange = function( ){
-				if( ajax.readyState == 4 ){ //petición finalizada
-					if( ajax.status == 200 ){ //documento encontrado, respuesta OK
-						document.querySelector( '#respuesta' ).innerHTML = ajax.responseText;
-					}else{
-						document.querySelector( '#respuesta' ).innerHTML = 'petición errónea';
-					}
-				}else{
-					document.querySelector( '#respuesta' ).innerHTML = 'espere...';
-				}
-			}
-			*/
-			ajax.send( ); //acá estamos pidiendo que se ejecute el ajax y también le estamos mandando datos
+			ajax.send( 'variables=valores&otra_variable=otro_valor&una_mas=valor' ); //acá estamos pidiendo que se ejecute el ajax y también le estamos mandando datos
 	</script>
 </body>
 </html>

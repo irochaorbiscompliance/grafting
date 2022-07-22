@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>Ejemplo Ajax</title>
+</head>
+<body>
+	<h1>Ejemplo ajax</h1>
+	<form method="post" action="ajax.php">
+		<div><input type="text" autocomplete="off" name="usuario" placeholder="usuario" /></div>
+		<div><input type="password" autocomplete="off" name="clave" placeholder="clave" /></div>
+		<div><input type="file" name="foto" /></div>
+		<div><input type="submit" value="Registrarme" /></div>
+	</form>
+	<div id="respuesta">ACA VA A ESTAR LA RESPUESTA DEL AJAX</div>
+	
+	<script>
+		var form = document.querySelector('form');
+		var boton = document.querySelector( '[type=submit]' );
+			form.onsubmit = e => { //function ( e ){ }
+				e.preventDefault( );
+				boton.disabled = true;
+
+				var fd = new FormData( form );
+				var ajax = new XMLHttpRequest( );
+					ajax.open( 'POST', 'ajax.php' );
+					ajax.upload.onprogress = e =>{
+						var porcentaje = e.loaded * 100 / e.total;
+						document.querySelector( '#respuesta' ).innerHTML = porcentaje.toFixed( 2 ) + '%';
+					}
+					ajax.onload = function( ){
+						boton.disabled = false;
+						document.querySelector( '#respuesta' ).innerHTML = ajax.responseText;
+						form.reset( );
+					}
+					ajax.send( fd );
+			}
+	</script>
+</body>
+</html>

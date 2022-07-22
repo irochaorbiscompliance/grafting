@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>Ejemplo Ajax</title>
+</head>
+<body>
+	<h1>Ejemplo ajax</h1>
+	<form method="post" action="ajax.php">
+		<div><input type="text" autocomplete="off" name="usuario" placeholder="usuario" /></div>
+		<div><input type="password" autocomplete="off" name="clave" placeholder="clave" /></div>
+		<div><input type="submit" value="Registrarme" /></div>
+	</form>
+	<div id="respuesta">ACA VA A ESTAR LA RESPUESTA DEL AJAX</div>
+	
+	<script>
+		var form = document.querySelector('form');
+			form.onsubmit = e => { //function ( e ){ }
+				//var usuario = document.querySelector( '[name=usuario]' ).value;
+				//var clave = document.querySelector( '[name=clave]' ).value;
+				
+				var fd = new FormData( form );
+					//fd.append( 'usuario', usuario );
+					//fd.append( 'clave', clave );
+				
+				e.preventDefault( ); //prevenir la acción por defecto del onsubmit... enviarse
+
+				var ajax = new XMLHttpRequest( ); //Javascript y XML Asincronico
+					ajax.open( 'POST', 'ajax.php' );
+					//ajax.setRequestHeader( "content-type", "application/x-www-form-urlencoded" );
+					ajax.onload = function( ){
+						document.querySelector( '#respuesta' ).innerHTML = ajax.responseText;
+					}
+					ajax.send( fd );
+			}
+	</script>
+</body>
+</html>
