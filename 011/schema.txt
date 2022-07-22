@@ -1,0 +1,9 @@
+CREATE TABLE products (
+make varchar (50),
+model varchar(50),
+description varchar(50),
+psu_ext_v double(3,3),
+psu_ext_a double(3,3),
+psu_ext_w double(3,3),
+hs_code int(8)
+);
